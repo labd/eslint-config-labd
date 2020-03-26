@@ -81,6 +81,8 @@ module.exports = {
         ],
         'no-useless-constructor': 'off',
         '@typescript-eslint/no-useless-constructor': 'warn',
+        '@typescript-eslint/explicit-function-return-type': 'warn',
+        '@typescript-eslint/no-empty-function': 'warn'
       },
     },
   ],
@@ -102,18 +104,5 @@ module.exports = {
     'react/require-render-return': 'error',
     'react/prop-types': 'off', // No need for prop type validation with TypeScript
     'react-hooks/rules-of-hooks': 'error',
-    'import/order': [
-      'error',
-      {
-        'newlines-between': 'never',
-        groups: ['builtin', 'external', 'internal', 'sibling', 'index'],
-        pathGroups: [
-          {
-            pattern: '~/**',
-            group: 'internal',
-          },
-        ],
-      },
-    ],
   },
 }
