@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
   parser: 'babel-eslint',
-  plugins: ['react', 'react-hooks', 'prettier'],
+  plugins: ['react', 'react-hooks', 'import'],
 
   env: {
     browser: true,
@@ -21,11 +21,13 @@ module.exports = {
   },
 
   extends: [
-    'plugin:prettier/recommended',
     'plugin:react/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
+    'prettier',
+    'prettier/react',
+    'prettier/@typescript-eslint',
   ],
 
   overrides: [
@@ -44,6 +46,41 @@ module.exports = {
       plugins: ['@typescript-eslint'],
       rules: {
         '@typescript-eslint/no-namespace': 'error',
+        'default-case': 'off',
+        'no-dupe-class-members': 'off',
+        'no-undef': 'off',
+        '@typescript-eslint/consistent-type-assertions': 'warn',
+        'no-array-constructor': 'off',
+        '@typescript-eslint/no-array-constructor': 'warn',
+        'no-use-before-define': 'off',
+        '@typescript-eslint/no-use-before-define': [
+          'warn',
+          {
+            functions: false,
+            classes: false,
+            variables: false,
+            typedefs: false,
+          },
+        ],
+        'no-unused-expressions': 'off',
+        '@typescript-eslint/no-unused-expressions': [
+          'error',
+          {
+            allowShortCircuit: true,
+            allowTernary: true,
+            allowTaggedTemplates: true,
+          },
+        ],
+        'no-unused-vars': 'off',
+        '@typescript-eslint/no-unused-vars': [
+          'warn',
+          {
+            args: 'none',
+            ignoreRestSiblings: true,
+          },
+        ],
+        'no-useless-constructor': 'off',
+        '@typescript-eslint/no-useless-constructor': 'warn',
       },
     },
   ],
@@ -56,15 +93,27 @@ module.exports = {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
     'import/resolver': {
-      typescript: {
-        directory: './tsconfig.json',
-      },
+      typescript: {},
     },
   },
   rules: {
-    'import/default': 0,
+    'import/default': 'off',
     'import/named': 'warn',
     'react/require-render-return': 'error',
+    'react/prop-types': 'off', // No need for prop type validation with TypeScript
     'react-hooks/rules-of-hooks': 'error',
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'never',
+        groups: ['builtin', 'external', 'internal', 'sibling', 'index'],
+        pathGroups: [
+          {
+            pattern: '~/**',
+            group: 'internal',
+          },
+        ],
+      },
+    ],
   },
 }
